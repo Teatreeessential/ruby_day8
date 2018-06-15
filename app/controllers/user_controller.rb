@@ -10,6 +10,7 @@ class UserController < ApplicationController
         u1 = User.new
         u1.user_name =params[:user_name]
         u1.password = params[:password]
+        u1.region = request.location.region
         u1.save
         redirect_to "/user/#{u1.id}"
     end
@@ -17,4 +18,6 @@ class UserController < ApplicationController
     def show
         @user = User.find(params[:id])
     end
+    
+ 
 end
