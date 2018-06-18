@@ -1,6 +1,8 @@
 class AskController < ApplicationController
     def index 
         @ask = Ask.all
+         
+        cookies[:user_name] ="안병찬"
     end
     
     def new 
@@ -13,6 +15,7 @@ class AskController < ApplicationController
         ask.ip_address = request.ip
         ask.region= request.location.region
         ask.save
+        flash[:success] = "새 글이 등록 되었습니다."
         redirect_to '/ask' #해당 요청은 index로 간다.
     end
     
@@ -25,6 +28,7 @@ class AskController < ApplicationController
     def delete
         ask = Ask.find(params[:id])
         ask.destroy
+        flash[:error] = "글이 삭제 되었습니다."
         redirect_to "/ask"
     end
     
@@ -36,6 +40,7 @@ class AskController < ApplicationController
         ask = Ask.find(params[:id])
         ask.question = params[:question]
         ask.save
+        flash[:info] ="글이 수정되었습니다."
         redirect_to '/ask'
     end
     
